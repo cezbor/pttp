@@ -56,14 +56,20 @@ public class KlientConfig
 			}
 			else if ( nowyUrl.startsWith("pttpu://"))
 			{
-				protokol=Protokol.PTTP;
-				
-			
-				
+				protokol=Protokol.PTTPU;						
 			}
-				nowyUrl = nowyUrl.substring(nowyUrl.indexOf("//") + 2);
-				sciezka = nowyUrl.substring(nowyUrl.indexOf("/") );			
-				ip = nowyUrl.substring(0, nowyUrl.indexOf("/"));
+			
+				try {
+					nowyUrl = nowyUrl.substring(nowyUrl.indexOf("//") + 2);
+				} catch (Exception e1) {
+				}
+				try {
+					sciezka = nowyUrl.substring(nowyUrl.indexOf("/") );
+					ip = nowyUrl.substring(0, nowyUrl.indexOf("/"));
+				} catch (Exception e) {
+					sciezka = "/";
+					ip = nowyUrl;
+				}			
 				
 		
 	}
@@ -85,7 +91,7 @@ public class KlientConfig
 		protokol = Protokol.PTTP;
 		wypelnianiePol();
 		System.out.println("IP  "+ip);
-		System.out.println("Sciiezka "+sciezka);	
+		System.out.println("Sciezka "+sciezka);	
 		System.out.println("prot "+ protokol);	
 	}
 }
