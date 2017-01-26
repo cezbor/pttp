@@ -46,7 +46,7 @@ public class Frame extends JFrame {
 	      JTextField url = new JTextField();
 	      url.setMaximumSize(new Dimension(200, 25));
 	      url.setText(KlientConfig.buildURL());
-	      
+	     
 		  
 		  JLabel polecenie= new JLabel("Wybierz protokó³:");
 		  JRadioButton pttp = new JRadioButton("PPTP", true);
@@ -153,67 +153,39 @@ public class Frame extends JFrame {
 	    		      .addComponent(scroll)
 	    		      
 	    		);
-	     /* layout.setVerticalGroup(
-	    		   layout.createSequentialGroup()
-	    		      //.addComponent(panel2)
-	    		      .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-	    		    		  
-	    		    		  .addComponent(nazwaUrl))
-	    		      .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-	    		    		
-	    		    		  .addComponent(url))
-	    		      .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-	    		    		  
-	    		    		  .addComponent(wyslij))
-	    		      
-	    		      .addComponent(wyniki)
-	    		      
-	    		);
-	      layout2.setVerticalGroup(
-	    		  layout2.createSequentialGroup()
-    		      .addComponent(polecenie)
-    		      .addGroup(layout2.createParallelGroup(GroupLayout.Alignment.BASELINE)
-    		           .addComponent(pttp)
-    		           .addComponent(pttpu)
-    		           )
-    		      .addGroup(layout2.createParallelGroup(GroupLayout.Alignment.BASELINE)
-    		    		  .addComponent(nazwaHosta)
-    		    	)
-    		      .addGroup(layout2.createParallelGroup(GroupLayout.Alignment.BASELINE)
-    		    		  .addComponent(host)
-    		    		 ) 
-    		      .addGroup(layout2.createParallelGroup(GroupLayout.Alignment.BASELINE)
-    		    		  .addComponent(nazwaSciezki)
-    		    		)
-    		      .addComponent(sciezka)
-    		      
-	    		  
-	    		  );
-	      layout2.setHorizontalGroup(
-	    		  layout2.createParallelGroup(GroupLayout.Alignment.LEADING)
-	    		  .addComponent(polecenie)
-				  .addGroup(layout2.createSequentialGroup()
-	    				  .addComponent(pttp)
-	    		          .addComponent(pttpu))
-	    		  .addComponent(nazwaHosta)
-	    		  .addComponent(host)
-	    		  .addComponent(nazwaSciezki)
-    		      .addComponent(sciezka)
-	    		  	  
-	    		  );
-	    		  
+	     
+	      url.addKeyListener(new KeyListener() {
+				@Override
+				public void keyTyped(KeyEvent e) {}
+				@Override
+				public void keyReleased(KeyEvent e) {
+					KlientConfig.url = url.getText();
+				//	System.out.println("URL: " + KlientConfig.url);
+					KlientConfig.wypelnianiePol();
+					sciezka.setText(KlientConfig.sciezka);
+					host.setText(KlientConfig.ip);
+					
+					if(KlientConfig.protokol==Protokol.PTTP)
+					{
+						pttp.setSelected(true);
+					System.out.println("Zmieniam pttp");
+					System.out.println("Zmienna protokol   "+KlientConfig.protokol);
+					}
+					else if(KlientConfig.protokol==Protokol.PTTPU)
+					{
+						pttpu.setSelected(true);
+					System.out.println("Zmieniam pttpu   ");
+					}
+					else
+					{
+						host.setText("");
+					}
+				}
+				@Override
+				public void keyPressed(KeyEvent e) {}
+		      });
 	      
 	      
-	      layout.setHorizontalGroup(
-	    		   layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	    		   .addGroup(layout.createSequentialGroup()
-	    				   	  //.addComponent(panel2)
-	    		      .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-	    		    		  .addComponent(nazwaUrl)
-	    	    		      .addComponent(url)
-	    	    		      .addComponent(wyslij)))
-	    		   .addComponent(wyniki)
-	    		    );*/
 	      layout.setHorizontalGroup(
 	    		   layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 	    		   .addGroup(layout.createSequentialGroup()
