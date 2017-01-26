@@ -2,6 +2,8 @@ package cbko.projekt.pttp.klient;
 
 import java.io.File;
 
+import cbko.projekt.pttp.serwer.Serwer;
+
 public class KlientConfig 
 {
 	public static enum Protokol {PTTP, PTTPU;}
@@ -44,9 +46,34 @@ public class KlientConfig
 		url = nowyurl;
 		return nowyurl;
 	}
+	public static void wypelnianiePol()
+	{
+		String nowyUrl =url;
+		
+			if( nowyUrl.startsWith("pttp://"))
+			{
+				protokol=Protokol.PTTP;
+			}
+			else if ( nowyUrl.startsWith("pttpu://"))
+			{
+				protokol=Protokol.PTTP;
+				
+			
+				
+			}
+				nowyUrl = nowyUrl.substring(nowyUrl.indexOf("//") + 2);
+				sciezka = nowyUrl.substring(nowyUrl.indexOf("/") );			
+				ip = nowyUrl.substring(0, nowyUrl.indexOf("/"));
+				
+		
+	}
+		
+	
+	
 	public static void main(String[] args)
 	{
-		protokol = Protokol.PTTP;
+		
+		protokol = Protokol.PTTPU;
 		ip = "192.168.1.101";
 		sciezka = "/aaaa/bbb/cccc/ddd";
 		System.out.println(buildURL());
@@ -54,5 +81,11 @@ public class KlientConfig
 		System.out.println(buildURL());
 		sciezka = "/aaaa/bbb/cccc/ddd/";
 		System.out.println(buildURL());
+		wypelnianiePol();
+		protokol = Protokol.PTTP;
+		wypelnianiePol();
+		System.out.println("IP  "+ip);
+		System.out.println("Sciiezka "+sciezka);	
+		System.out.println("prot "+ protokol);	
 	}
 }
