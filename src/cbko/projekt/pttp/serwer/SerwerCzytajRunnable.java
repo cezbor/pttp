@@ -85,7 +85,7 @@ final class SerwerCzytajRunnable implements Runnable
 	    					   bufferedWriter.write(doWyslania);
 		    				   bufferedWriter.newLine();
 	    					   bufferedWriter.flush();
-	    					   //System.out.println(doWyslania);
+	    					   System.out.println("<I> Wysylam liste plikow");
 		    			   }
 		    			   else								//jest plikem
 		    			   {

@@ -11,27 +11,66 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.swing.JTextArea;
+
+import cbko.projekt.pttp.serwer.Serwer;
+
 public class Klient 
 {
+	private static int port;
+	
+	private static Frame f;
+	
 	public static void polacz() 
 	{
-
 		ExecutorService executorService = Executors.newFixedThreadPool(10);
-	    
-		
-		/*
-		public static String ip = "";
-		public static String url = "pttp://";
-		public static String sciezka = "";
-		public static enum Protokol {PTTP, PTTPU;}
-		public static KlientConfig.Protokol protokol; 
-		*/
 		
 		//final Socket socket = new Socket("192.168.1.101", 5400);
-		System.out.println("³¹czê " + KlientConfig.ip);
+		System.out.println("³¹czê - host: " + KlientConfig.ip + "\n\tprotokol: " + KlientConfig.protokol);
 		try{
-		final Socket socket = new Socket(KlientConfig.ip, 5400);
+			
+			
+		if (KlientConfig.protokol == KlientConfig.Protokol.PTTP)
+			port = 5400;
+		else if (KlientConfig.protokol == KlientConfig.Protokol.PTTPU)
+			port = 5401;
 		
+		final Socket socket = new Socket(KlientConfig.ip, port);
+		
+		Runnable nowy = new Runnable() 
+        {
+            @Override
+            public void run() 
+            {
+                try 
+                {
+             	   BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             	   BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        	       bufferedWriter.write("GET  PTTP/1.0");
+        	       bufferedWriter.newLine();
+        	       bufferedWriter.flush();
+        	       //f.println("GET PTTP/1.0");
+        	       String line = bufferedReader.readLine();
+        	       //bufferedReader.ready()
+         	       while (bufferedReader.ready())
+         	       {
+         	    	   //System.out.println("serwer: " + line);
+
+         	    	   f.println(line);
+         		       line = bufferedReader.readLine();
+
+         	       }
+         	       
+         	       f.println(line);
+         	       System.out.println("Od³¹czam");
+         	       f.println("Od³¹czam");
+         	       socket.close();
+                } catch (IOException e) 
+                {
+                    e.printStackTrace();
+                }
+            }
+        };
 		
 		Runnable czytaj = new Runnable() 
         {
@@ -83,21 +122,23 @@ public class Klient
                 }
             }
         };
+
+        executorService.submit(nowy);
+        //executorService.submit(czytaj);
+        //executorService.submit(wysylaj);
         
-        executorService.submit(czytaj);
-        executorService.submit(wysylaj);
 		} 
 		catch (IOException e) {
 			System.out.println("Nie mogê po³¹czyæ");
-			
 		}
 	
 	}
 	
 	public static void main(String[] args) throws Exception
 	{
-		Frame f = new Frame();
+		f = new Frame();
 		f.setVisible(true);
+		//polacz();
 	}
 	
 

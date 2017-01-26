@@ -19,6 +19,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
 
 import cbko.projekt.pttp.klient.KlientConfig.Protokol;
 
@@ -27,6 +28,8 @@ public class Frame extends JFrame {
 
 
 	 private JPanel panel = new JPanel();
+	 
+	 private JTextArea wyniki;
 	 
 	public Frame() throws UnknownHostException, IOException 
 	{
@@ -109,11 +112,12 @@ public class Frame extends JFrame {
 				public void keyPressed(KeyEvent e) {}
 		      });
 	      
-	      JTextArea wyniki = new JTextArea();
+	      wyniki = new JTextArea();
 	      wyniki.setMaximumSize(new Dimension(400, 200));
-	      //wyniki.setEnabled(false);
 	      wyniki.setEditable(false);
-	      wyniki.setText("1sssfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nssfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\nsfgd\n");
+	      wyniki.setText("");
+	      DefaultCaret caret = (DefaultCaret)wyniki.getCaret();
+	      caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	      	      
 	      JScrollPane scroll = new JScrollPane(wyniki);
 	      
@@ -208,6 +212,13 @@ public class Frame extends JFrame {
 	      this.add(panel);
 	      this.setVisible(true);
 	}
+	
+	public void println(String str)
+	{
+		wyniki.append(str);
+		wyniki.append("\n");
+	}
+	
 	
 	public static void main(String[] args) throws UnknownHostException, IOException 
 	{
