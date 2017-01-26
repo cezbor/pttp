@@ -46,12 +46,13 @@ public class Klient
                 {
              	   BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              	   BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        	       bufferedWriter.write("GET  PTTP/1.0");
+        	       bufferedWriter.write(KlientConfig.skladanieZapytania());
         	       bufferedWriter.newLine();
         	       bufferedWriter.flush();
         	       //f.println("GET PTTP/1.0");
         	       String line = bufferedReader.readLine();
         	       //bufferedReader.ready()
+        	       
          	       while (bufferedReader.ready())
          	       {
          	    	   //System.out.println("serwer: " + line);

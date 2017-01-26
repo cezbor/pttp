@@ -12,7 +12,9 @@ public class KlientConfig
 	public static String url = "pttp://";
 	public static String sciezka = "";
 	public static KlientConfig.Protokol protokol = Protokol.PTTP; 
-	
+	public final static String preffix = "GET ";
+	public final static String suffix = " PTTP/1.0";
+	public final static String koniecPliku = "<<PTTP END>>";
 	private final static String delim = "/"; 
 	
 	
@@ -70,6 +72,13 @@ public class KlientConfig
 			ip = nowyUrl;
 		}
 	}
+	public static String skladanieZapytania()
+	{
+		String zapytanie=null;
+		zapytanie = preffix + sciezka + suffix ;
+		
+		return zapytanie;
+	}
 		
 	
 	
@@ -90,5 +99,6 @@ public class KlientConfig
 		System.out.println("IP  " + ip);
 		System.out.println("Sciezka " + sciezka);	
 		System.out.println("port "+ protokol);	
+		System.out.println(skladanieZapytania());
 	}
 }
