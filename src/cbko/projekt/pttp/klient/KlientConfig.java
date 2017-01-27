@@ -1,9 +1,6 @@
 package cbko.projekt.pttp.klient;
 
-import java.io.File;
 import java.nio.file.Path;
-
-import cbko.projekt.pttp.serwer.Serwer;
 
 public class KlientConfig 
 {
@@ -13,11 +10,13 @@ public class KlientConfig
 	public static String url = "pttp://";
 	public static String sciezka = "";
 	public static KlientConfig.Protokol protokol = Protokol.PTTP; 
+	public static Path sciezkaZapisu;
+	
 	public final static String preffix = "GET ";
 	public final static String suffix = " PTTP/1.0";
 	public final static String koniecPliku = "<<PTTP END>>";
+	
 	private final static String delim = "/"; 
-	public static Path sciezkaZapisu;
 	
 	
 	public static String buildURL()
@@ -29,7 +28,6 @@ public class KlientConfig
 			nowyurl = "pttpu://";
 		
 		nowyurl += ip;
-		
 		
 		if (sciezka.startsWith(delim))
 			nowyurl += sciezka;
@@ -77,8 +75,7 @@ public class KlientConfig
 		return s;
 	}
 	
-	
-	
+	/*		//Funkcja testowa
 	public static void main(String[] args)
 	{
 		
@@ -99,4 +96,5 @@ public class KlientConfig
 		System.out.println(skladanieZapytania());
 		System.out.println(getFileName());
 	}
+	*/
 }

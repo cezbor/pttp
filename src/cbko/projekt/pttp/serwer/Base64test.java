@@ -16,7 +16,6 @@ public class Base64test
 	{
 		Encoder encoder = Base64.getEncoder();
 		byte[] tekst2 = tekst.getBytes(StandardCharsets.UTF_8); //Charset.forName("UTF-8")
-		//String nowyTekst = encoder.encodeToString(tekst2);	//Te¿ dzia³a
 		String nowyTekst = new String(encoder.encode(tekst2), StandardCharsets.UTF_8);
 		return nowyTekst;
 	}
@@ -65,7 +64,7 @@ public class Base64test
 			return "blad kodowania";
 		}
 	}
-	
+	/*		//Funkcja testowa
 	public static void main(String[] args)
 	{
 		String tekstDoZakodowania = "Czeœæ";
@@ -81,5 +80,6 @@ public class Base64test
 		System.out.println("Koduje: \""+ plik +"\"");
 		System.out.println(Base64test.encodeFile(plik));
 	}
+	*/
 	
 }

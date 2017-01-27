@@ -20,17 +20,11 @@ public class Parse
 		if (substring.startsWith(delim))
 			substring = substring.substring(1);
 		String[] tab = substring.split(delim);
-		//System.out.println("substring: " + substring);
 		for (String str : tab)
 		{
 			path += File.separator;
 			path += str;
 		}
-		/*for (int i=0; i<tab.length; i++)		//To samo
-		{
-			path += File.separator;
-			path += tab[i];
-		}*/
 		return path;
 	}
 	
@@ -40,11 +34,12 @@ public class Parse
 		String wyn = parseGETtoPath(textToParse);
 		System.out.println(wyn);
 	}
-	
+	/*			//Funkcja testowa
 	public static void main(String[] args)
 	{
 		parseTest("GET /raz/dwa/trzy/piec PTTP/1.0");
 		parseTest("GET raz/dwa/trzy/piec PTTP/1.0");
 		parseTest("GET PTTP/1.0");
 	}
+	*/
 }
