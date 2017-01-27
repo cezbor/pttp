@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,6 +40,7 @@ public class Frame extends JFrame {
 		  this.setLocationByPlatform(true);
 		  this.setSize(440, 415);
 		  this.setTitle("Klient PTTP/PTTPU");
+		  
 		  
 		  GroupLayout layout = new GroupLayout(panel);
 		  panel.setLayout(layout);
@@ -124,6 +126,7 @@ public class Frame extends JFrame {
 	     
 	      JButton wyslij = new JButton("Wyœlij");
 	      
+	      
 	      wyslij.addActionListener(new ActionListener()
 		{
 			
@@ -135,7 +138,16 @@ public class Frame extends JFrame {
 			}
 		});
 	      
-
+	      JButton zapis = new JButton("Wybierz œcie¿kê zapisu");
+	      			
+	      JFileChooser fo = new JFileChooser();
+	      fo.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	      if(fo.showOpenDialog(zapis)==JFileChooser.APPROVE_OPTION)
+	      {
+	    	  
+	      }
+	      
+			
 	      
 	      layout.setVerticalGroup(
 	    		   layout.createSequentialGroup()
@@ -153,7 +165,9 @@ public class Frame extends JFrame {
 	    		      .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 	    		    		  .addComponent(nazwaSciezki)
 	    		    		  .addComponent(wyslij))
-	    		      .addComponent(sciezka)
+	    		      .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	    		    		  .addComponent(zapis)
+	    		    		  .addComponent(sciezka))
 	    		      .addComponent(scroll)
 	    		      
 	    		);
@@ -205,7 +219,9 @@ public class Frame extends JFrame {
 	    		      .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
 	    		    		  .addComponent(nazwaUrl)
 	    	    		      .addComponent(url)
-	    	    		      .addComponent(wyslij)))
+	    	    		      .addComponent(wyslij)
+	    	    		      .addComponent(zapis)))
+	    		   
 	    		   .addComponent(scroll)
 	    		    );
 	      
