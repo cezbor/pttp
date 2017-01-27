@@ -2,11 +2,17 @@ package cbko.projekt.pttp.klient;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,6 +51,7 @@ public class Klient
             {
                 try 
                 {
+                
              	   BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              	   BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         	       bufferedWriter.write(KlientConfig.skladanieZapytania());
@@ -52,24 +59,80 @@ public class Klient
         	       bufferedWriter.flush();
         	       //String line = null;
         	       //Base64test.decodeString(tekst);
+        	       //FileOutputStream ssss = new FileOutputStream(KlientConfig.sciezkaZapisu.toFile()); 
         	       
         	       
+        	       
+        	       //plikWriter.write(str);
         	       String line = bufferedReader.readLine();
-         	       while (bufferedReader.ready())
-         	       {
-         	    	   //System.out.println("serwer: " + line);
-         	    	   if (KlientConfig.protokol == Protokol.PTTPU)
-         	    		   line = Base64test.decodeString(line);
-         	    	   f.println(line);
-         		       line = bufferedReader.readLine();
-         		     // f.println(line);
+        	       System.out.println(line);
+        	       if (KlientConfig.protokol == Protokol.PTTPU)
+        	       {
+     	    		   line = Base64test.decodeString(line);
+     	    		   //f.println(line);
+        	       }
+        	       System.out.println(line);
+        	       if (line.startsWith("Lista plikow"))
+        	       {
+        	    	   
+        	    	   while (bufferedReader.ready())
+             	       {
+        	    		   f.println(line);
+             		       line = bufferedReader.readLine();
+             	       }
+             	       //if (KlientConfig.protokol == Protokol.PTTPU)
+             	    	//   line = Base64test.decodeString(line);
+        	    	   line = line.substring(0, line.indexOf(KlientConfig.koniecPliku));
+             	       f.println(line);
+        	       }
+        	       else
+        	       {
+        	    	   f.wyborSciezkiZapisu();
+        	    	   //Path p = Paths.get(KlientConfig.sciezkaZapisu.toString(),"/", KlientConfig.getFileName());
+        	    	   File plik  = new File(KlientConfig.sciezkaZapisu.toFile(), KlientConfig.getFileName());
+    	    		   System.out.println(plik.getPath());
+    	    		   if (KlientConfig.protokol == Protokol.PTTP)
+             	       {
+    	    			   BufferedWriter plikWriter = new BufferedWriter (new FileWriter(plik)); 
+            	    	   //line = bufferedReader.readLine();
+            	    	   while (bufferedReader.ready())
+                 	       {
+            	    		   System.out.println("______----____dzialam____-----____");
+            	    		   
+            	    		   System.out.println(plik.getPath());
+                 	    	   
+                 	    	  // f.println(line);
+            	    		   plikWriter.write(line);
+                 	    	   plikWriter.newLine();
 
-         	       }
-         	       if (KlientConfig.protokol == Protokol.PTTPU)
-         	    	   line = Base64test.decodeString(line);
-         	       f.println(line);
+                 		       line = bufferedReader.readLine();
+                 		     // f.println(line);
+
+                 	       }
+            	    	   line = line.substring(0, line.indexOf(KlientConfig.koniecPliku));
+            	    	   plikWriter.write(line);
+            	    	   plikWriter.close();
+             	       }
+    	    		   else if (KlientConfig.protokol == Protokol.PTTPU)
+             	       {
+             	    	   //line = Base64test.decodeString(line);
+             	    	   line = line.substring(0, line.indexOf(KlientConfig.koniecPliku));
+            	    	   System.out.println(line);
+                	       Base64test.decodeToFile(line, plik);
+             	       }
+             	      // f.println(line);
+             	       //plikWriter.write(line);
+             	      // plikWriter.close();
+        	       }
+        	       
+         	       
          	      // System.out.println("Od³¹czam");
          	      // f.println("Od³¹czam");
+        	       /*
+         	       Scanner scanner =new Scanner(new InputStreamReader(socket.getInputStream()));
+         	       scanner.useDelimiter(KlientConfig.koniecPliku);
+         	       f.println(scanner.nextLine());
+         	       */
          	       socket.close();
                 } catch (IOException e) 
                 {

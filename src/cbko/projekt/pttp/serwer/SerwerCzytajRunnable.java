@@ -99,8 +99,9 @@ final class SerwerCzytajRunnable implements Runnable
 		    				   } 
 		    				   else if (protokol == Protokol.PTTPU)
 		    				   {
-		    					   doWyslania += Serwer.koniecPliku;
 		    					   doWyslania = Base64test.encodeFile(path);
+		    					   doWyslania += Serwer.koniecPliku;
+		    					   doWyslania = Base64test.encodeString(doWyslania);
 		    				   }
 		    				   
 		    				   //Files.write(new File("plik.png").toPath(), bajty);	//Zapisanie do pliku

@@ -1,6 +1,7 @@
 package cbko.projekt.pttp.klient;
 
 import java.io.File;
+import java.nio.file.Path;
 
 import cbko.projekt.pttp.serwer.Serwer;
 
@@ -16,22 +17,11 @@ public class KlientConfig
 	public final static String suffix = " PTTP/1.0";
 	public final static String koniecPliku = "<<PTTP END>>";
 	private final static String delim = "/"; 
+	public static Path sciezkaZapisu;
 	
 	
 	public static String buildURL()
-	{/*
-		String path = "";
-		if (sciezka.startsWith(delim))
-			sciezka = sciezka.substring(1);
-		String[] tab = sciezka.split(delim);
-		//System.out.println("substring: " + substring);
-		for (String str : tab)
-		{
-			path += File.separator;
-			path += str;
-		}
-		System.out.println(path + "\n");
-		*/
+	{
 		String nowyurl = "";
 		if (protokol == Protokol.PTTP)
 			nowyurl = "pttp://";
@@ -80,6 +70,13 @@ public class KlientConfig
 		return zapytanie;
 	}
 		
+	public static String getFileName()
+	{
+		String s = sciezka;
+		s = s.substring(s.lastIndexOf("/") + 1);
+		return s;
+	}
+	
 	
 	
 	public static void main(String[] args)
@@ -91,7 +88,7 @@ public class KlientConfig
 		System.out.println(buildURL());
 		sciezka = "aaaa/bbb/cccc/ddd";
 		System.out.println(buildURL());
-		sciezka = "/aaaa/bbb/cccc/ddd/";
+		//sciezka = "/aaaa/bbb/cccc/ddd/";
 		System.out.println(buildURL());
 		wypelnianiePol();
 		protokol = Protokol.PTTP;
@@ -100,5 +97,6 @@ public class KlientConfig
 		System.out.println("Sciezka " + sciezka);	
 		System.out.println("port "+ protokol);	
 		System.out.println(skladanieZapytania());
+		System.out.println(getFileName());
 	}
 }

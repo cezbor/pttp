@@ -29,6 +29,20 @@ public class Base64test
 		return nowyTekst;
 	}
 	
+	public static void decodeToFile(String tekst, File plik)
+	{
+		Decoder decoder = Base64.getDecoder();
+		byte[] bajty = decoder.decode(tekst);
+		try
+		{
+			Files.write(plik.toPath(), bajty);
+		}
+		catch (IOException e)
+		{
+			System.out.println("B³¹d - nie mo¿na zapisaæ pliku");
+		}
+	}
+	
 	public static String encodeFile(File plik)
 	{
 		Path path = plik.toPath();

@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -23,12 +25,14 @@ import javax.swing.JTextField;
 import javax.swing.text.DefaultCaret;
 
 import cbko.projekt.pttp.klient.KlientConfig.Protokol;
+import cbko.projekt.pttp.serwer.Serwer;
 
 
 public class Frame extends JFrame {
 
 
 	 private JPanel panel = new JPanel();
+	 JButton zapis;
 	 
 	 private JTextArea wyniki;
 	 
@@ -138,14 +142,18 @@ public class Frame extends JFrame {
 			}
 		});
 	      
-	      JButton zapis = new JButton("Wybierz œcie¿kê zapisu");
-	      			
-	      JFileChooser fo = new JFileChooser();
-	      fo.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-	      if(fo.showOpenDialog(zapis)==JFileChooser.APPROVE_OPTION)
-	      {
-	    	  
-	      }
+	      zapis = new JButton("Wybierz œcie¿kê zapisu");
+	      
+	      zapis.addActionListener(new ActionListener()
+		{
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				wyborSciezkiZapisu();
+			}
+		});
+	      
 	      
 			
 	      
@@ -235,6 +243,17 @@ public class Frame extends JFrame {
 		wyniki.append("\n");
 	}
 	
+	public void wyborSciezkiZapisu()
+	{
+		JFileChooser fo = new JFileChooser();
+	    fo.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	    if(fo.showOpenDialog(zapis) == JFileChooser.APPROVE_OPTION)
+	    {
+	    	  Path path = fo.getSelectedFile().toPath();
+	    	  println(path.toString());
+	    	  KlientConfig.sciezkaZapisu = path;
+	    }
+	}
 	
 	public static void main(String[] args) throws UnknownHostException, IOException 
 	{
