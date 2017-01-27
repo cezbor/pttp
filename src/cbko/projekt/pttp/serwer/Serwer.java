@@ -27,8 +27,10 @@ public class Serwer
 
 		SerwerRunnable watek1 = new SerwerRunnable(serverSocket1, Protokol.PTTP);
 		SerwerRunnable watek2 = new SerwerRunnable(serverSocket2, Protokol.PTTPU);
-
-		sciezka = args[0]; 
+		
+		if (args.length != 0)
+			sciezka = args[0];
+		
 		System.out.println("Sciezka udostêpniania: " + sciezka);
 		
 		Runnable a = new Runnable()
