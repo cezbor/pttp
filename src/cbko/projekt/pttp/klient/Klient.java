@@ -51,15 +51,14 @@ public class Klient
         	       bufferedWriter.flush();
 
         	       String line = bufferedReader.readLine();
-        	       System.out.println(line);
+        	       //System.out.println(line);
         	       if (KlientConfig.protokol == Protokol.PTTPU)
         	       {
      	    		   line = Base64test.decodeString(line);
         	       }
-        	       System.out.println(line);
+        	       //System.out.println(line);
         	       if (line.startsWith("Lista plikow"))
         	       {
-        	    	   
         	    	   while (bufferedReader.ready())
              	       {
         	    		   f.println(line);
@@ -111,8 +110,8 @@ public class Klient
         
 		} 
 		catch (IOException e) {
-			System.out.println("Nie mo¿na po³¹czyæ, serer nie odpowiada");
-			f.println("Nie mo¿na po³¹czyæ, serer nie odpowiada");
+			System.out.println("Nie mo¿na po³¹czyæ, serwer nie odpowiada");
+			f.println("Nie mo¿na po³¹czyæ, serwer nie odpowiada");
 		}
 	
 	}
