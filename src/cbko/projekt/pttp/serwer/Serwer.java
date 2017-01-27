@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 public class Serwer
 {
-	public final static String sciezka = "E:\\pttp_udostepnianie"; // Windows
+	public final static String sciezka = "C:\\pttp_udostepnianie"; // Windows
 	// public final static String sciezka = "/var/pttp_udostepnianie"; //Linux
 	public final static String preffix = "GET ";
 	public final static String suffix = " PTTP/1.0";

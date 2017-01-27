@@ -13,7 +13,8 @@ import java.util.concurrent.Executors;
 
 import javax.swing.JTextArea;
 
-import cbko.projekt.pttp.serwer.Serwer;
+import cbko.projekt.pttp.klient.KlientConfig.Protokol;
+import cbko.projekt.pttp.serwer.Base64test;
 
 public class Klient 
 {
@@ -49,22 +50,26 @@ public class Klient
         	       bufferedWriter.write(KlientConfig.skladanieZapytania());
         	       bufferedWriter.newLine();
         	       bufferedWriter.flush();
-        	       //f.println("GET PTTP/1.0");
-        	       String line = bufferedReader.readLine();
-        	       //bufferedReader.ready()
+        	       //String line = null;
+        	       //Base64test.decodeString(tekst);
         	       
+        	       
+        	       String line = bufferedReader.readLine();
          	       while (bufferedReader.ready())
          	       {
          	    	   //System.out.println("serwer: " + line);
-
+         	    	   if (KlientConfig.protokol == Protokol.PTTPU)
+         	    		   line = Base64test.decodeString(line);
          	    	   f.println(line);
          		       line = bufferedReader.readLine();
+         		     // f.println(line);
 
          	       }
-         	       
+         	       if (KlientConfig.protokol == Protokol.PTTPU)
+         	    	   line = Base64test.decodeString(line);
          	       f.println(line);
-         	       System.out.println("Od³¹czam");
-         	       f.println("Od³¹czam");
+         	      // System.out.println("Od³¹czam");
+         	      // f.println("Od³¹czam");
          	       socket.close();
                 } catch (IOException e) 
                 {
@@ -130,7 +135,8 @@ public class Klient
         
 		} 
 		catch (IOException e) {
-			System.out.println("Nie mogê po³¹czyæ");
+			System.out.println("Nie mo¿na po³¹czyæ, serer nie odpowiada");
+			f.println("Nie mo¿na po³¹czyæ, serer nie odpowiada");
 		}
 	
 	}
